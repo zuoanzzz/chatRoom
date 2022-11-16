@@ -11,8 +11,7 @@ public class User implements Serializable {
     private String UID;
     private String pwd;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String UID, String pwd) {
         this.UID = UID;

@@ -22,7 +22,7 @@ public class View {
         while (loop) {
             System.out.println("==========欢迎登录网络通信系统==========");
             System.out.println("\t\t\t1 登录系统");
-            System.out.println("\t\t\t2 退出系统");
+            System.out.println("\t\t\t9 退出系统");
             System.out.print("请输入你的选择：");
             key = scanner.next();
             if (key.equals("1")) {
@@ -43,6 +43,7 @@ public class View {
                         key = scanner.next();
                         switch (key) {
                             case "1":
+                                clientService.onlineFriendList();
                                 break;
                             case "2":
                                 break;
@@ -52,6 +53,7 @@ public class View {
                                 break;
                             case "9":
                                 loop = false;
+                                clientService.logout();
                                 break;
                         }
                     }

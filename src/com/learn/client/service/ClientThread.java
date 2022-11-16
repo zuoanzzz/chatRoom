@@ -1,7 +1,9 @@
 package com.learn.client.service;
 
 import com.learn.qqcommon.Message;
+import com.learn.qqcommon.MessageType;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -26,12 +28,23 @@ public class ClientThread extends Thread{
 
     @Override
     public void run() {
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         while(true){
             try {
-                System.out.println("客户端等待服务器的发送的消息。。。");
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                System.out.println("客户端等待服务器发送的消息。。。");
                 Message message = (Message) ois.readObject();
-
+                if(message.getMesType().equals(MessageType.MESSAGE_RET_ONLINE_FRIEND)){
+                    String[] onlineUsers = message.getContent().split(" ");
+                    System.out.println("==========在线用户列表==========");
+                    for (String onlineUser : onlineUsers) {
+                        System.out.println(onlineUser);
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

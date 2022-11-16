@@ -9,19 +9,20 @@ import java.io.Serializable;
 public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
     private String sender;
+    private String getter;
+
+    public String getGetter() {
+        return getter;
+    }
+
+    public void setGetter(String getter) {
+        this.getter = getter;
+    }
+
     private String receiver;
     private String content;
     private String sendTime;
     private String MesType;
-
-    public Message(){}
-    public Message(String sender, String receiver, String content, String sendTime, String mesType) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.content = content;
-        this.sendTime = sendTime;
-        MesType = mesType;
-    }
 
     public String getSender() {
         return sender;
