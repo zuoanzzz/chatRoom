@@ -48,6 +48,11 @@ public class View {
                             case "2":
                                 break;
                             case "3":
+                                System.out.println("请输入想聊天的用户号（在线）：");
+                                String getterId = scanner.next();
+                                System.out.println("请输入想说的话：");
+                                String content = scanner.next();
+                                clientService.sendMessageToOne(content,uid,getterId);
                                 break;
                             case "4":
                                 break;

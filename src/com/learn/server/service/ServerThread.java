@@ -1,7 +1,7 @@
 package com.learn.server.service;
 
-import com.learn.qqcommon.Message;
-import com.learn.qqcommon.MessageType;
+import com.learn.common.Message;
+import com.learn.common.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,6 +15,10 @@ import java.net.Socket;
 public class ServerThread extends Thread {
     private String uid;
     private Socket socket;
+
+    public Socket getSocket() {
+        return socket;
+    }
 
     public ServerThread(String uid, Socket socket) {
         this.socket = socket;
@@ -45,6 +49,11 @@ public class ServerThread extends Thread {
                     System.out.println("服务端和客户端" + uid + "断开连接");
                     socket.close();
                     break;
+                } else if (message.getMesType().equals(MessageType.MESSAGE_COMM_MES)) {
+                    String getterId = message.getGetter();
+                    ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(getterId)
+                            .getSocket().getOutputStream());        //需要getSocket方法，获取其他线程的socket
+                    oos.writeObject(message);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.learn.qqcommon;
+package com.learn.common;
 
 /**
  * @author zhoulei

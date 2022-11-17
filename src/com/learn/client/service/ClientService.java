@@ -1,14 +1,15 @@
 package com.learn.client.service;
 
-import com.learn.qqcommon.Message;
-import com.learn.qqcommon.MessageType;
-import com.learn.qqcommon.User;
+import com.learn.common.Message;
+import com.learn.common.MessageType;
+import com.learn.common.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Date;
 
 /**
  * @author zhoulei
@@ -63,7 +64,7 @@ public class ClientService {
         }
     }
 
-    public void logout(){
+    public void logout() {
         Message message = new Message();
         message.setMesType(MessageType.MESSAGE_CLIENT_EXIT);
         message.setSender(u.getUID());
@@ -72,6 +73,22 @@ public class ClientService {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(message);
             System.exit(0);     //结束进程
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendMessageToOne(String content, String senderId, String getterId) {
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_COMM_MES);
+        message.setContent(content);
+        message.setGetter(getterId);
+        message.setSender(senderId);
+        message.setSendTime(new Date().toString());
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

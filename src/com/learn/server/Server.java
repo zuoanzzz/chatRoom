@@ -1,8 +1,8 @@
 package com.learn.server;
 
-import com.learn.qqcommon.Message;
-import com.learn.qqcommon.MessageType;
-import com.learn.qqcommon.User;
+import com.learn.common.Message;
+import com.learn.common.MessageType;
+import com.learn.common.User;
 import com.learn.server.service.ManageServerThreads;
 import com.learn.server.service.ServerThread;
 

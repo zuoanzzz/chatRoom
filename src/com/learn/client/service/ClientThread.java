@@ -1,7 +1,7 @@
 package com.learn.client.service;
 
-import com.learn.qqcommon.Message;
-import com.learn.qqcommon.MessageType;
+import com.learn.common.Message;
+import com.learn.common.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
