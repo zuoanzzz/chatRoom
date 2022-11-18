@@ -13,6 +13,10 @@ public class ManageServerThreads {
         hm.put(uid, serverThread);
     }
 
+    public static HashMap<String, ServerThread> getHm() {
+        return hm;
+    }
+
     public static void removeServerThread(String uid){
         hm.remove(uid);
     }

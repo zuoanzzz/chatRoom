@@ -46,15 +46,25 @@ public class View {
                                 clientService.onlineFriendList();
                                 break;
                             case "2":
+                                System.out.println("请输入想群发的消息：");
+                                String contentToAll = scanner.next();
+                                clientService.sendMessageToAll(contentToAll,uid);
                                 break;
                             case "3":
                                 System.out.println("请输入想聊天的用户号（在线）：");
                                 String getterId = scanner.next();
                                 System.out.println("请输入想说的话：");
-                                String content = scanner.next();
-                                clientService.sendMessageToOne(content,uid,getterId);
+                                String contentToOne = scanner.next();
+                                clientService.sendMessageToOne(contentToOne,uid,getterId);
                                 break;
                             case "4":
+                                System.out.println("请输入想发送文件的用户号:");
+                                String getter = scanner.next();
+                                System.out.println("请输入发送文件的源路径：");
+                                String src = scanner.next();
+                                System.out.println("请输入发送文件的目标路径：");
+                                String dest = scanner.next();
+                                clientService.sendFileToOne(src,dest,uid,getter);
                                 break;
                             case "9":
                                 loop = false;

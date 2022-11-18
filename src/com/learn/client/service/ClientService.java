@@ -4,9 +4,7 @@ import com.learn.common.Message;
 import com.learn.common.MessageType;
 import com.learn.common.User;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Date;
@@ -87,6 +85,43 @@ public class ClientService {
         message.setSendTime(new Date().toString());
 
         try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendMessageToAll(String content,String senderId){
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_TO_ALL_MES);
+        message.setContent(content);
+        message.setSender(senderId);
+        message.setSendTime(new Date().toString());
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendFileToOne(String src,String dest,String senderId,String getterId){
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_FILE_MES);
+        message.setSender(senderId);
+        message.setGetter(getterId);
+        message.setSrc(src);
+        message.setDest(dest);
+
+        //读取文件
+        byte[] bytes = new byte[(int) new File(src).length()];      //通过File类的方法获取文件的长度,一次读取完
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(src);
+            fileInputStream.read(bytes);
+            message.setFileBytes(bytes);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(message);
         } catch (IOException e) {

@@ -10,6 +10,48 @@ public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
     private String sender;
     private String getter;
+    private String receiver;
+    private String content;
+    private String sendTime;
+    private String MesType;
+
+    //文件相关的扩展
+    private byte[] fileBytes;
+    private int fileLen = 0;
+    private String dest;
+    private String src;
+
+    public byte[] getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
+    public int getFileLen() {
+        return fileLen;
+    }
+
+    public void setFileLen(int fileLen) {
+        this.fileLen = fileLen;
+    }
+
+    public String getDest() {
+        return dest;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
 
     public String getGetter() {
         return getter;
@@ -18,11 +60,6 @@ public class Message implements Serializable {
     public void setGetter(String getter) {
         this.getter = getter;
     }
-
-    private String receiver;
-    private String content;
-    private String sendTime;
-    private String MesType;
 
     public String getSender() {
         return sender;

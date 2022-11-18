@@ -27,15 +27,10 @@ public class ServerThread extends Thread {
 
     @Override
     public void run() {
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         while (true) {
             System.out.println("服务端和客户端" + uid + "保持通信，读取数据。。。");
             try {
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 Message message = (Message) ois.readObject();
                 if (message.getMesType().equals(MessageType.MESSAGE_GET_ONLINE_FRIEND)) {
                     Message ret_userList = new Message();
@@ -53,6 +48,19 @@ public class ServerThread extends Thread {
                     String getterId = message.getGetter();
                     ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(getterId)
                             .getSocket().getOutputStream());        //需要getSocket方法，获取其他线程的socket
+                    oos.writeObject(message);
+                } else if (message.getMesType().equals(MessageType.MESSAGE_TO_ALL_MES)) {
+                    for (String key : ManageServerThreads.getHm().keySet()) {
+                        if (!key.equals(message.getSender())) {
+                            ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(key)
+                                    .getSocket().getOutputStream());
+                            oos.writeObject(message);
+                        }
+                    }
+                } else if (message.getMesType().equals(MessageType.MESSAGE_FILE_MES)) {
+                    String getterId = message.getGetter();
+                    ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(getterId)
+                            .getSocket().getOutputStream());
                     oos.writeObject(message);
                 }
             } catch (Exception e) {
