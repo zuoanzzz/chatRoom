@@ -1,5 +1,7 @@
 package com.learn.common;
 
+import com.learn.server.Server;
+
 /**
  * @author zhoulei
  * @date 2022/11/14
@@ -13,4 +15,6 @@ public interface MessageType {
     String MESSAGE_CLIENT_EXIT = "6";   //客户端请求退出
     String MESSAGE_TO_ALL_MES = "7";
     String MESSAGE_FILE_MES = "8";
+    String MESSAGE_SERVER_TO_ALL = "9";
+    String MESSAGE_OFFLINE_MES = "10";
 }

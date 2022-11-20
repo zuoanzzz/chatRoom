@@ -46,6 +46,10 @@ public class ClientThread extends Thread {
                     String dest = message.getDest();
                     FileOutputStream fileOutputStream = new FileOutputStream(dest);
                     fileOutputStream.write(message.getFileBytes());
+                } else if (message.getMesType().equals(MessageType.MESSAGE_SERVER_TO_ALL)) {
+                    System.out.println("服务器公告：" + message.getContent());
+                } else if (message.getMesType().equals(MessageType.MESSAGE_OFFLINE_MES)) {
+                    System.out.println("用户（" + message.getGetter() + "）发给你的离线消息：" + message.getContent());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

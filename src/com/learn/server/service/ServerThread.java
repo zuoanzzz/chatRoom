@@ -2,8 +2,8 @@ package com.learn.server.service;
 
 import com.learn.common.Message;
 import com.learn.common.MessageType;
+import com.learn.server.Server;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -46,9 +46,14 @@ public class ServerThread extends Thread {
                     break;
                 } else if (message.getMesType().equals(MessageType.MESSAGE_COMM_MES)) {
                     String getterId = message.getGetter();
-                    ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(getterId)
-                            .getSocket().getOutputStream());        //需要getSocket方法，获取其他线程的socket
-                    oos.writeObject(message);
+                    if (ManageServerThreads.getHm().keySet().contains(getterId)) {
+                        ObjectOutputStream oos = new ObjectOutputStream(ManageServerThreads.getServerThread(getterId)
+                                .getSocket().getOutputStream());        //需要getSocket方法，获取其他线程的socket
+                        oos.writeObject(message);
+                    }
+                    else {
+                        Server.getOffLineMessages().get(getterId).add(message);
+                    }
                 } else if (message.getMesType().equals(MessageType.MESSAGE_TO_ALL_MES)) {
                     for (String key : ManageServerThreads.getHm().keySet()) {
                         if (!key.equals(message.getSender())) {

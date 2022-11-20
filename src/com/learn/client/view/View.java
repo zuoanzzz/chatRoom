@@ -51,7 +51,7 @@ public class View {
                                 clientService.sendMessageToAll(contentToAll,uid);
                                 break;
                             case "3":
-                                System.out.println("请输入想聊天的用户号（在线）：");
+                                System.out.println("请输入想聊天的用户号：");
                                 String getterId = scanner.next();
                                 System.out.println("请输入想说的话：");
                                 String contentToOne = scanner.next();
